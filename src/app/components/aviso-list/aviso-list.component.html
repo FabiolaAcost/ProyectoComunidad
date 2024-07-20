@@ -1,0 +1,30 @@
+<ion-list>
+  <ion-item *ngFor="let aviso of avisos">
+    <ion-thumbnail slot="start">
+      <ion-img class="image-size" [src]="aviso.imagen" alt="Image of {{ aviso.nombre }}"></ion-img>
+    </ion-thumbnail>
+    <ion-label>
+      <h2 style="font-weight: bold;">{{ aviso.nombre }}</h2>
+      <p>{{ aviso.fechaCreacion | date: 'shortDate' }}</p>
+    </ion-label>
+    <ion-buttons slot="end">
+      <ion-button (click)="openDeleteConfirmModal(aviso)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+</ion-list>
+
+<ion-modal [isOpen]="isDeleteModalOpen" (willDismiss)="onWillDismissDelete($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>¿Desea eliminar el aviso?</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeDeleteModal()" slot="start">Cancelar</ion-button>
+          <ion-button (click)="confirmDelete()" color="danger">Eliminar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </ng-template>
+</ion-modal>

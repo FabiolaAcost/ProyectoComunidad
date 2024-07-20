@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back-outline" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Publicación
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" padding>
+  <form #avisoForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Titulo</ion-label>
+        <ion-input
+          type="text"
+          name="titulo"
+          [(ngModel)]="nuevoAviso.nombre"
+          placeholder="Introduce el título"
+          required
+          minlength="5"
+          #titulo="ngModel"
+        ></ion-input>
+      </ion-item>
+      <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+        <ion-text color="danger" *ngIf="titulo.errors?.['required']">El título es obligatorio.</ion-text>
+        <ion-text color="danger" *ngIf="titulo.errors?.['minlength']">El título debe tener al menos 5 caracteres.</ion-text>
+      </div>
+
+      <ion-item>
+        <ion-button (click)="capturePhoto()" slot="start">
+          <ion-icon name="camera-outline"></ion-icon>
+          Fotografía
+        </ion-button>
+        <ion-img [src]="nuevoAviso.imagen" *ngIf="nuevoAviso.imagen" style="width: 100px; height: 100px; object-fit: cover; margin-top: 10px;"></ion-img>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-input
+          type="text"
+          name="descripcion"
+          [(ngModel)]="nuevoAviso.descripcion"
+          placeholder="Introduce la descripción"
+          required
+          minlength="20"
+          #descripcion="ngModel"
+        ></ion-input>
+      </ion-item>
+      <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+        <ion-text color="danger" *ngIf="descripcion.errors?.['required']">La descripción es obligatoria.</ion-text>
+        <ion-text color="danger" *ngIf="descripcion.errors?.['minlength']">La descripción debe tener al menos 20 caracteres.</ion-text>
+      </div>
+    </ion-list>
+
+    <!-- Botón para guardar la publicación -->
+    <ion-buttons slot="end">
+      <ion-button (click)="guardarAviso()" strong="true" [disabled]="avisoForm.invalid">Guardar</ion-button>
+    </ion-buttons>
+  </form>
+</ion-content>
